@@ -1,0 +1,17 @@
+{
+  "$schema": "https://anthropic.com/claude-code/marketplace.schema.json",
+  "name": "cast-skills",
+  "description": "Bootstrap structured project knowledge in one command. Generates project-context, SDD, and per-module skills by reading your codebase.",
+  "owner": {
+    "name": "Pedro Castanha",
+    "url": "https://github.com/pedrocastanhacosta1945"
+  },
+  "plugins": [
+    {
+      "name": "skill-creator",
+      "description": "Auto-generates project-context, SDD, and module skills by reading your codebase and asking targeted questions.",
+      "source": "./",
+      "category": "productivity"
+    }
+  ]
+}

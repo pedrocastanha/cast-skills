@@ -1,0 +1,8 @@
+{
+  "name": "skill-creator",
+  "description": "Generates project-specific skills: project-context, SDD workflow, and per-module business rules. Invoke /skill-creator in any project to bootstrap a structured knowledge base.",
+  "author": {
+    "name": "Pedro Castanha",
+    "url": "https://github.com/pedrocastanhacosta1945"
+  }
+}
