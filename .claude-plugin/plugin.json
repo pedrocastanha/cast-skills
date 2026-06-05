@@ -1,8 +1,5 @@
 {
-  "name": "skill-creator",
-  "description": "Generates project-specific skills: project-context, SDD workflow, and per-module business rules. Invoke /skill-creator in any project to bootstrap a structured knowledge base.",
-  "author": {
-    "name": "Pedro Castanha",
-    "url": "https://github.com/pedrocastanhacosta1945"
-  }
+  "name": "cast-skills",
+  "description": "Cross-tool project skills: bootstrap project-context, per-module knowledge, and a TDD spec-driven workflow, then route every feature/fix/refactor through them. Install with: npx cast-skills",
+  "author": { "name": "Pedro Castanha", "url": "https://github.com/pedrocastanhacosta1945" }
 }
