@@ -1,0 +1,21 @@
+{
+  "name": "cast-skills",
+  "version": "2.0.0",
+  "description": "Cross-tool AI skills: bootstrap and use per-project context, module knowledge, and a TDD spec-driven workflow. Installs into Claude Code, Cursor, Copilot, Codex, Gemini, and Windsurf.",
+  "type": "module",
+  "bin": { "cast-skills": "cli/index.js" },
+  "files": ["cli/", "skills/", "commands/", ".claude-plugin/", "README.md"],
+  "engines": { "node": ">=18" },
+  "scripts": {
+    "test": "node --test",
+    "validate": "node scripts/validate-skills.mjs",
+    "start": "node cli/index.js"
+  },
+  "keywords": ["agent-skills", "skill", "claude-code", "cursor", "copilot", "codex", "gemini", "windsurf", "spec-driven", "tdd"],
+  "author": "Pedro Castanha",
+  "license": "MIT",
+  "dependencies": {
+    "@clack/prompts": "^0.11.0",
+    "picocolors": "^1.1.1"
+  }
+}

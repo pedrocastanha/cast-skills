@@ -1,0 +1,21 @@
+# Dependencies
+node_modules/
+
+# npm build / pack artifacts
+*.tgz
+*.log
+npm-debug.log*
+
+# Redundant clone source — the workflow is shipped inside
+# skills/creating-project-skills/references/sdd-clone/
+.claude/
+
+# Internal planning / process docs (not needed to understand the package)
+docs/
+
+# OS / editor cruft
+.DS_Store
+Thumbs.db
+.vscode/
+.idea/
+*.swp
