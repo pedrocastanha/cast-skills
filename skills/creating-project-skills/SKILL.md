@@ -46,10 +46,10 @@ Bootstrap progress:
 ## Phase 3 — GENERATE
 
 Read the templates with the Read tool (not auto-loaded):
-- `references/project-context-template.md`
-- `references/module-template.md`
-- `references/sdd-skill-template.md`
-- `references/tdd-immutable.md`
+- `references/sdd-clone/references/project-context-template.md`
+- `references/sdd-clone/references/module-template.md`
+- `references/sdd-clone/references/sdd-skill-template.md`
+- `references/sdd-clone/references/tdd-immutable.md`
 
 Generate in this order:
 

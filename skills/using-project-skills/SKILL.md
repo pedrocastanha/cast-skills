@@ -34,6 +34,13 @@ ls skills/project-context/SKILL.md skills/spec-driven-development/SKILL.md 2>/de
 
 Do not start editing code before completing Step 2.
 
+## Step 3 — After the work lands
+
+When a **non-trivial** change is finished (touched 2+ files, introduced a new concept/pattern/
+dependency, or contained non-obvious logic — not a rename, bump, or typo), hand off to
+`explaining-changes`, which offers — once, non-blocking — a beginner-friendly explanation at the depth
+the user wants. Skip the offer for trivial tweaks. The user can also ask for it any time ("me explica").
+
 **If they do NOT exist (project not set up):**
 
 Offer — **once per session, non-blocking**:
