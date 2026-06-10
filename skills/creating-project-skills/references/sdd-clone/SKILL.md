@@ -9,6 +9,10 @@ metadata:
 
 # Tech Lead's Club - Spec-Driven Development
 
+> Base workflow by Felipe Rodrigues (tlc-spec-driven, CC-BY-4.0), adapted by **cast-skills** with two
+> changes woven into the flow below: **project-context loading** before every cycle, and **immutable
+> phase-1 TDD** inside Execute. Changes are marked `[cast-skills]`. See [ATTRIBUTION.md](ATTRIBUTION.md).
+
 Plan and implement projects with precision. Granular tasks. Clear dependencies. Right tools. Zero ceremony.
 
 ```
@@ -39,6 +43,11 @@ Plan and implement projects with precision. Granular tasks. Clear dependencies. 
 - **Discuss is triggered within Specify** only when the agent detects ambiguous gray areas that need user input
 - **Interactive UAT is triggered within Execute** only for user-facing features with complex behavior
 - **Quick mode** is the express lane — for bug fixes, config changes, and small tweaks
+- **`[cast-skills]` Execute is test-first and the tests are immutable** — phase 1 writes the tests as the
+  frozen contract derived from the spec; phase 2 makes the implementation conform. You never edit a test
+  to make code pass. A test that feels wrong is a *spec change*: stop, fix the spec, revise the test
+  deliberately. See [tdd-immutable.md](references/tdd-immutable.md). This applies in every scope,
+  including quick mode.
 
 **Safety valve:** Even when Tasks is skipped, Execute ALWAYS starts by listing atomic steps inline (see [implement.md](references/implement.md)). If that listing reveals >5 steps or complex dependencies, STOP and create a formal `tasks.md` — the Tasks phase was wrongly skipped.
 
@@ -72,29 +81,37 @@ Plan and implement projects with precision. Granular tasks. Clear dependencies. 
 
 ## Workflow
 
+**`[cast-skills]` Step 0 — load project context (every feature, fix, or quick task):**
+Before Specify (or before Implement in quick mode), read `skills/project-context/SKILL.md` for domain,
+stack, conventions, and the module map; then read the affected `<module>/SKILL.md` for its business
+rules, relationships, and gotchas. This replaces re-deriving the codebase from scratch each session.
+If these skills don't exist yet, run `creating-project-skills` first.
+
 **New project:**
 
 1. Initialize project → PROJECT.md + ROADMAP.md
-2. For each feature → Specify → (Design) → (Tasks) → Execute (depth auto-sized)
+2. For each feature → **load project context** → Specify → (Design) → (Tasks) → Execute (depth auto-sized)
 
 **Existing codebase:**
 
 1. Map codebase → 7 brownfield docs
 2. Initialize project → PROJECT.md + ROADMAP.md
-3. For each feature → same adaptive workflow
+3. For each feature → **load project context** → same adaptive workflow
 
-**Quick mode:** Describe → Implement → Verify → Commit (for ≤3 files, one-sentence scope)
+**Quick mode:** **Load context** → Describe → Implement → Verify → Commit (for ≤3 files, one-sentence scope)
 
 ## Context Loading Strategy
 
 **Base load (~15k tokens):**
 
+- `[cast-skills]` `skills/project-context/SKILL.md` (domain, stack, conventions, module map)
 - PROJECT.md (if exists)
 - ROADMAP.md (when planning/working on features)
 - STATE.md (persistent memory)
 
 **On-demand load:**
 
+- `[cast-skills]` `<affected-module>/SKILL.md` (business rules, relationships, gotchas — load the module you're touching, never all modules at once)
 - Codebase docs (when working in existing project)
 - CONCERNS.md (when planning features that touch flagged areas, estimating risk, or modifying fragile components)
 - TESTING.md (when creating tasks or executing — drives test type assignment and gate checks)
@@ -214,3 +231,21 @@ Be conversational, not robotic. Don't interrupt workflow—add as a natural clos
 ## Code Analysis
 
 Use available tools with graceful degradation. See [code-analysis.md](references/code-analysis.md).
+
+---
+
+## cast-skills Generation Templates
+
+> `[cast-skills]` The runtime behavior (context loading + immutable TDD) is woven into the workflow
+> above. The files below are **meta** — they are read by `creating-project-skills` to *generate* a
+> project's skill tree, not consumed during a normal Specify → Execute cycle.
+
+| Template | Generates |
+|----------|-----------|
+| [project-context-template.md](references/project-context-template.md) | `skills/project-context/SKILL.md` — domain, stack, conventions, module map |
+| [module-template.md](references/module-template.md) | `<module>/SKILL.md` — business rules, relationships, gotchas |
+| [sdd-skill-template.md](references/sdd-skill-template.md) | the project-adapted header that overwrites this SKILL.md's frontmatter (project name, framework, trigger phrases) |
+| [tdd-immutable.md](references/tdd-immutable.md) | the immutable-TDD contract, copied verbatim into the generated workflow |
+
+Distributed by **cast-skills** (MIT). Original tlc-spec-driven files remain CC-BY-4.0 — see
+[ATTRIBUTION.md](ATTRIBUTION.md).
