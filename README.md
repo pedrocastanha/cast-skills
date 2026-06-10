@@ -39,12 +39,13 @@ every agent uses it.
 
 ## ✨ What you get
 
-Two cross-tool skills, installed once:
+Three cross-tool skills, installed once:
 
 | Skill | Role |
 |-------|------|
 | 🧭 **`using-project-skills`** | **Always-on router.** Fires the moment you start a feature/fix/refactor — loads your project context and steers the work through the right module + spec-driven workflow. No project skills yet? It offers to create them (once, never naggy). |
 | 🏗️ **`creating-project-skills`** | **The bootstrapper** (`/skill-creator`). Reads your codebase, asks a few sharp questions, and generates the whole project skill tree. |
+| 📖 **`explaining-changes`** | **The teacher.** After a non-trivial change it offers a beginner-first explanation at the depth *you* pick — ELI5, dev, or down to compilation & runtime — saved as a Markdown (and optional HTML) file with diagrams, analogies, and references. |
 
 ---
 
@@ -145,6 +146,25 @@ The generated `spec-driven-development` skill enforces a hard rule:
 If a test feels wrong, that's a *spec change* — you stop, fix the spec, and revise the test
 deliberately. The test follows the spec, never the implementation. No more silently moving the
 goalposts to get green.
+
+---
+
+## 📖 Understand everything you ship
+
+Working code you don't understand is a liability. After any non-trivial change, `explaining-changes`
+offers a walkthrough at the depth you have energy for that day — and saves it (gitignored) so you can
+revisit it later.
+
+| Level | You get |
+|-------|---------|
+| **1 · ELI5** | What and why, one strong analogy, zero jargon |
+| **2 · Dev** | Data flow, design decisions, trade-offs, code walkthrough |
+| **3 · Under the hood** | Compilation, runtime, memory, complexity, what the framework hides |
+| **4 · Complete** | One doc that climbs from ELI5 all the way to the metal |
+
+Every file ships with a central analogy, Mermaid diagrams, a glossary, and **real references** — and
+optionally a self-contained HTML page that renders the diagrams in your browser. Explanations are
+written for a curious beginner: every term defined, nothing hand-waved.
 
 ---
 
