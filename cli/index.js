@@ -1,5 +1,6 @@
 #!/usr/bin/env node
 import { fileURLToPath } from 'node:url';
+import fs from 'node:fs';
 import path from 'node:path';
 import * as p from '@clack/prompts';
 import pc from 'picocolors';
@@ -8,16 +9,54 @@ import { installSkill } from './install.js';
 
 const HERE = path.dirname(fileURLToPath(import.meta.url));
 const SKILLS_ROOT = path.join(HERE, '..', 'skills');
-const SKILL_NAMES = ['creating-project-skills', 'using-project-skills'];
+
+const LINKED_PAIR = ['creating-project-skills', 'using-project-skills'];
+
+const SKILL_HINTS = {
+  'creating-project-skills': 'bootstrap a project skill tree',
+  'using-project-skills': 'always-on router into project skills',
+  'explaining-changes': 'deep beginner-friendly explanations of changes',
+};
+
+function discoverSkills() {
+  return fs.readdirSync(SKILLS_ROOT, { withFileTypes: true })
+    .filter(d => d.isDirectory() && fs.existsSync(path.join(SKILLS_ROOT, d.name, 'SKILL.md')))
+    .map(d => d.name);
+}
 
 async function main() {
   console.clear();
   p.intro(pc.bgCyan(pc.black(' cast-skills ')));
+
+  const available = discoverSkills();
+
+  const skillChoices = await p.multiselect({
+    message: 'Which skills to install?',
+    options: available.map(name => {
+      const isLinked = LINKED_PAIR.includes(name);
+      const hint = SKILL_HINTS[name] || '';
+      return {
+        value: name,
+        label: name + (isLinked ? pc.green('  ★ recommended pair') : ''),
+        hint,
+      };
+    }),
+    initialValues: LINKED_PAIR.filter(n => available.includes(n)),
+    required: true,
+  });
+  if (p.isCancel(skillChoices)) return p.cancel('Cancelled.');
+
+  const hasLinkedPair = LINKED_PAIR.every(n => skillChoices.includes(n));
+  if (!hasLinkedPair && LINKED_PAIR.some(n => skillChoices.includes(n))) {
+    const missing = LINKED_PAIR.find(n => !skillChoices.includes(n));
+    p.log.warn(
+      `${pc.yellow(missing)} works best paired with the other. Consider installing both.`
+    );
+  }
+
   p.note(
-    'Installs two cross-tool skills:\n' +
-    `  ${pc.cyan('creating-project-skills')}  bootstrap a project skill tree\n` +
-    `  ${pc.cyan('using-project-skills')}     always-on router into them`,
-    'What you get'
+    skillChoices.map(n => `  ${pc.cyan(n)}`).join('\n'),
+    `Installing ${skillChoices.length} skill${skillChoices.length > 1 ? 's' : ''}`
   );
 
   const detected = detectInstalled().map(t => t.id);
@@ -54,10 +93,10 @@ async function main() {
     }
     s.start(`Installing into ${tool.label}`);
     try {
-      for (const name of SKILL_NAMES) {
+      for (const name of skillChoices) {
         installSkill(path.join(SKILLS_ROOT, name), dest, tool);
       }
-      results.push({ tool: tool.label, status: pc.green('ok'), detail: dest });
+      results.push({ tool: tool.label, status: pc.green('ok'), detail: `${skillChoices.length} skill${skillChoices.length > 1 ? 's' : ''} → ${dest}` });
     } catch (err) {
       results.push({ tool: tool.label, status: pc.red('failed'), detail: err.message });
     }
