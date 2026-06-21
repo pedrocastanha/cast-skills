@@ -63,7 +63,7 @@ auto-detects which tools you already use, lets you pick scope, and drops the ski
 ```mermaid
 flowchart TD
     A(["npx cast-skills"]) --> B{"Pick your tools<br/>(auto-detected)"}
-    B --> C["Copy the 2 skills into each tool"]
+    B --> C["Copy the 3 skills into each tool"]
     C --> D["Claude · Copilot · Gemini · Codex<br/>native SKILL.md, copied verbatim"]
     C --> E["Cursor .mdc · Windsurf rules<br/>auto-converted format"]
     D --> F(["Skills live in every agent"])
@@ -102,6 +102,10 @@ flowchart TD
     O -- "yes" --> G["creating-project-skills"]
     G --> U
     W --> Z(["Code that respects your architecture"])
+    Z --> EX{"Non-trivial change?"}
+    EX -- "yes" --> EXP["explaining-changes<br/>ELI5 · Dev · Under the hood · Complete"]
+    EX -- "no" --> DONE(["Done"])
+    EXP --> DONE
 ```
 
 ---

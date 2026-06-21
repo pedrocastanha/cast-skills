@@ -41,7 +41,7 @@ async function main() {
         hint,
       };
     }),
-    initialValues: LINKED_PAIR.filter(n => available.includes(n)),
+    initialValues: available,
     required: true,
   });
   if (p.isCancel(skillChoices)) return p.cancel('Cancelled.');
